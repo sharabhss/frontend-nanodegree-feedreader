@@ -95,21 +95,21 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        //declare variables to save old and new feed data
+        var prev_entries, new_entries;
         //call this function for asunchronous request
         beforeEach(function(done) {
             $('.feed').empty();
             //call the feed first to save it for comparision with the second call later
             loadFeed(0, function() {
-                var prev_entries = $('.feed').find("h2").text();
-                console.log("Previous entries: " + prev_entries);
+                prev_entries = $('.feed').find("h2").text();
                 done();
             });
         });
         it('changes content to the new feed content', function(done) {
             //now call the feed again for new content and save to new_entries and run comparision
             loadFeed(1, function() {
-                var new_entries = $('.feed').find("h2").text();
-                console.log("New entries: " + new_entries);
+                new_entries = $('.feed').find("h2").text();
                 expect(prev_entries).not.toEqual(new_entries);
                 done();
             });
